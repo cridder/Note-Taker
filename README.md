@@ -18,3 +18,8 @@ WHEN I click on an existing note in the list in the left-hand column
 THEN that note appears in the right-hand column
 WHEN I click on the Write icon in the navigation at the top of the page
 THEN I am presented with empty fields to enter a new note title and the note’s text in the right-hand column
+
+
+## Mock-Up
+![](./img/11-express-homework-demo-01.png)
+![](./img/11-express-homework-demo-02.png)
