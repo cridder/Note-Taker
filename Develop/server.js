@@ -7,7 +7,9 @@ const uuid = require('./helpers/uuid');
 
 // Require the JSON file and assign it to a variable called `dbData`
 const dbData = require("./db/db.json");
-const PORT = 3001;
+
+
+const PORT = process.env.PORT || 8080;
 
 
 
