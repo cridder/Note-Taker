@@ -1,14 +1,19 @@
 {
   "name": "note-taker",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
-  }
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "node": "^18.13.0",
+    "path": "^0.12.7",
+    "uuid": "^9.0.0"
+  },
+  "description": ""
 }
