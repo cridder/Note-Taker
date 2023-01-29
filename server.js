@@ -2,11 +2,12 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
+
 // Helper method for generating unique ids
 const uuid = require('./helpers/uuid');
 
 // Require the JSON file and assign it to a variable called `dbData`
-const dbData = require("./db/db.json");
+const dbData = require("./db/note.json");
 
 
 const PORT = process.env.PORT || 8080;
@@ -61,12 +62,12 @@ app.post('/api/notes', (req, res) => {
   if (title && text ) {
     // Variable for the object we will save
     const newNote = {
-      title,
-      text,
-    //   username,
-    //   upvotes: Math.floor(Math.random() * 100),
-      review_id: uuid(),
-    };
+			title,
+			text,
+			//   username,
+			//   upvotes: Math.floor(Math.random() * 100),
+			notes_id: uuid(),
+		};
 
     const response = {
       status: 'success',
