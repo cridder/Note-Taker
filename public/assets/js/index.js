@@ -1,3 +1,5 @@
+// FROM STARTER CODE NO NEED TO EDIT
+
 let noteTitle;
 let noteText;
 let saveNoteBtn;
