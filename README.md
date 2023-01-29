@@ -49,6 +49,8 @@ GIVEN a note-taking application
 
 [**Video**](https://drive.google.com/file/d/170rNvl2pDh_RIkSKPt7p5XEor-kcoCRW/view)
 
+[Note Taker.webm](https://user-images.githubusercontent.com/8334125/215359960-0a30b6b2-fc35-4eca-bd65-86e7b3e71472.webm)
+
 **GIF**
 
 ![Start Image](./public/assets/img//Note%20Taker.gif)
