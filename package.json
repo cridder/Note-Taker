@@ -7,7 +7,7 @@
     "start": "node server.js"
   },
   "author": "chris ridder",
-  "license": "AGPL v3",
+  "license": "AGPL-3.0-or-later",
   "dependencies": {
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
