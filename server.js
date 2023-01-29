@@ -1,123 +1,73 @@
-// Import express package
-const express = require("express");
-const path = require("path");
-const fs = require("fs");
+// Dependencies.
+const express = require('express');
+const uuid = require('uuid');
+const fs = require('fs');
+const path = require('path');
 
-// Helper method for generating unique ids
-const uuid = require('./helpers/uuid');
-
-// Require the JSON file and assign it to a variable called `dbData`
-const dbData = require("./db/note.json");
-
-
-const PORT = process.env.PORT || 8080;
-
-
-
-// Initialize our app variable by setting it to the value of express()
+// Express app.
 const app = express();
 
-app.use(express.json());
+// Set port.
+const PORT = process.env.PORT || 8080;
+
+// Express middleware.
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use('/assets', express.static(path.join(__dirname, 'public/assets')));
 
-app.use(express.static("public"));
+// Notes route.
+app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/notes.html'));
+  });
 
-// not needed i think
-// app.get("/", (req, res) => res.send("Visit http://localhost:3001/api"));
+// api routes 
+app.get('/api/notes', (req, res) => {
+    fs.readFile(path.join(__dirname,  "./db/db.json"), 'utf8', (err, data) => {
+      if (err) throw err;
+      res.json(JSON.parse(data));
+    });
+  });
 
-// res.json() allows us to return JSON instead of a buffer, string, or static file
-app.get("/api", (req, res) => res.json(dbData));
+// Html route. 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+  });
 
-// res.json() allows us to return JSON instead of a buffer, string, or static file
-app.get("/api/notes", (req, res) => res.json(dbData));
+// Delete id.
+app.delete('/api/notes/:id', (req, res) => {
+    fs.readFile(path.join(__dirname,  "./db/db.json"), 'utf8', (err, data) => {
+      let db = JSON.parse(data);
+      db = db.filter((e) => {
+        return e.id !== req.params.id;
+      });
+      fs.writeFile(
+        path.join(__dirname,  "./db/db.json"),
+        JSON.stringify(db, null, 2),
+        (err, data) => {
+          if (err) throw err;
+          res.json(db);
+        }
+      );
+    });
+  });
 
-// GET Route for homepage
-app.get('/', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/index.html'))
-);
-
-// GET Route for notes page
-app.get('/notes', (req, res) =>
-  res.sendFile(path.join(__dirname, '/public/notes.html'))
-);
-
-// POST request for notes
-// app.post('/api/notes', (req, res) => {
-//   // Inform the client that their POST request was received
-//   res.json(`${req.method} request received to add a notes`);
-
-//   // Log our request to the terminal
-//   console.info(`${req.method} request received to add a notes`);
-// });
-
-// POST request to add a text
 app.post('/api/notes', (req, res) => {
-  // Log that a POST request was received
-  console.info(`${req.method} request received to add a notes`);
-
-  // Destructuring assignment for the items in req.body
-  const { title, text } = req.body;
-
-  // If all the required properties are present
-  if (title && text ) {
-    // Variable for the object we will save
-    const newNote = {
-			title,
-			text,
-			//   username,
-			//   upvotes: Math.floor(Math.random() * 100),
-			notes_id: uuid(),
-		};
-
-    const response = {
-      status: 'success',
-      body: newNote,
-    };
-
-    console.log(response);
-    res.status(201).json(response);
-  } else {
-    res.status(500).json('Error in posting note');
-  }
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// port listen
-app.listen(PORT, () =>
-	console.log(`Example app listening at http://localhost:${PORT}`)
-);
+    fs.readFile(path.join(__dirname,  "./db/db.json"), 'utf8', (err, data) => {
+      let db = JSON.parse(data);
+      db.push({
+        id: uuid.v4(),
+        ...req.body,
+      });
+      fs.writeFile(
+        path.join(__dirname,  "./db/db.json"),
+        JSON.stringify(db, null, 2),
+        (err, data) => {
+          if (err) throw err;
+          res.json(db);
+        }
+      );
+    });
+  });
+ 
+//  Port. 
+app.listen(PORT, () => console.log(`The server is now listening on PORT ${PORT}`));
