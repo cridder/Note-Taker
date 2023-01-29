@@ -4,7 +4,7 @@ const path = require("path");
 const fs = require("fs");
 
 // Helper method for generating unique ids
-const uuid = require('./helpers/uuid');
+const uuid = require('./z-helpers/uuid');
 
 // Require the JSON file and assign it to a variable called `dbData`
 const dbData = require("./db/note.json");
