@@ -45,6 +45,9 @@ GIVEN a note-taking application
 - [X] WHEN I click on the Write icon in the navigation at the top of the page
     - [X] THEN I am presented with empty fields to enter a new note title and the note’s text in the right-hand column
 ## Usage
+
+[**GitHub Page**](https://cridder.github.io/Note-Taker/)
+
 [Deployed App Link](https://pure-harbor-21490.herokuapp.com/)
 
 [**Video**](https://drive.google.com/file/d/170rNvl2pDh_RIkSKPt7p5XEor-kcoCRW/view)
