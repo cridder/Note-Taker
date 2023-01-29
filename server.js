@@ -1,39 +1,32 @@
-// Dependencies.
+// required
 const express = require('express');
 const uuid = require('uuid');
 const fs = require('fs');
 const path = require('path');
-
-// Express app.
+// app express
 const app = express();
-
-// Set port.
+// heroku port
 const PORT = process.env.PORT || 8080;
-
-// Express middleware.
+// middle ware for assests
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/assets', express.static(path.join(__dirname, 'public/assets')));
-
-// Notes route.
+// route for notes html
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'));
   });
-
-// api routes 
+// routes for db 
 app.get('/api/notes', (req, res) => {
     fs.readFile(path.join(__dirname,  "./db/db.json"), 'utf8', (err, data) => {
       if (err) throw err;
       res.json(JSON.parse(data));
     });
   });
-
-// Html route. 
+// route for index html
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
   });
-
-// Delete id.
+// route to delete a notes
 app.delete('/api/notes/:id', (req, res) => {
     fs.readFile(path.join(__dirname,  "./db/db.json"), 'utf8', (err, data) => {
       let db = JSON.parse(data);
@@ -50,7 +43,7 @@ app.delete('/api/notes/:id', (req, res) => {
       );
     });
   });
-
+// route to add a note
 app.post('/api/notes', (req, res) => {
     fs.readFile(path.join(__dirname,  "./db/db.json"), 'utf8', (err, data) => {
       let db = JSON.parse(data);
@@ -68,6 +61,5 @@ app.post('/api/notes', (req, res) => {
       );
     });
   });
- 
-//  Port. 
+ // listen on the port
 app.listen(PORT, () => console.log(`The server is now listening on PORT ${PORT}`));
